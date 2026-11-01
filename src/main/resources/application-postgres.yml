@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/raizes}
+    username: ${DB_USER:raizes}
+    password: ${DB_PASSWORD:raizes}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true

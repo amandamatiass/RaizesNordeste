@@ -1,0 +1,41 @@
+# Perfil padrão: H2 em memória (nenhuma instalação necessária).
+# Para PostgreSQL + Flyway, rode com: --spring.profiles.active=postgres
+spring:
+  application:
+    name: raizes-do-nordeste
+  datasource:
+    url: jdbc:h2:mem:raizes;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  flyway:
+    enabled: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+springdoc:
+  swagger-ui:
+    operations-sorter: method
+
+app:
+  seed:
+    enabled: true
+  jwt:
+    # Troque em produção (use variável de ambiente APP_JWT_SECRET). Mínimo de 32 caracteres.
+    secret: ${APP_JWT_SECRET:raizes-do-nordeste-chave-de-desenvolvimento-32+}
+    access-minutes: 60
+    refresh-days: 7
+  webhook:
+    # Segredo compartilhado com o provedor de pagamento (assinatura HMAC-SHA256).
+    secret: ${APP_WEBHOOK_SECRET:segredo-webhook-dev}
+    validar-assinatura: true
